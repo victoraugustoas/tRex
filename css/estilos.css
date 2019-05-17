@@ -2,6 +2,7 @@
     width: 500px;
     height: 150px;
     position: relative;
+    overflow: hidden;
 }
 
 .chao {
@@ -29,4 +30,12 @@
     background-position: -86px 2px;
     position: absolute;
     z-index: 1;
+}
+
+.pontos {
+    font-family: 'Courier New', Courier, monospace;
+    size: 2em;
+    position: absolute;
+    right: 15px;
+    z-index: 2;
 }
