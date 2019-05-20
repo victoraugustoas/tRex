@@ -3,31 +3,44 @@ import Pontos from './Class/Pontos'
 import Deserto from './Class/Deserto'
 import Dino from './Class/Dino'
 import Nuvem from './Class/Nuvem'
+import Cacto from './Class/Cacto'
 
 const FPS = 60;
 const numberOfClouds = 7;
+let nuvens = [];
+
 let start = false
 let gameLoop;
 let deserto;
 let dino;
-let nuvens = [];
 let pontos = 0;
-let pontuacao = null
+
+const numberOfCactos = 5
+let cactos = []
 
 function init() {
     deserto = new Deserto(FPS);
     dino = new Dino(deserto);
 
-    pontuacao = document.createElement('div')
-    document.body.appendChild(pontuacao)
-
     for (let i = 0; i < numberOfClouds; i++) {
         nuvens.push(new Nuvem(deserto, FPS))
     }
 
-    diaNoite()
-    pontos = new Pontos(pontuacao)
-    pontos.contaPontos()
+    pontos = new Pontos(deserto, FPS)
+
+    for (let i = 0; i < numberOfCactos; i++) {
+
+    }
+    let i = 0
+    let loopCactos = setInterval(() => {
+        if (i < numberOfCactos) {
+            cactos.push(new Cacto(deserto))
+        } else {
+            clearInterval(loopCactos)
+        }
+        i++
+    }, 1000)
+
 }
 
 function keys() {
@@ -38,9 +51,12 @@ function keys() {
     window.addEventListener("keyup", (e) => {
         if (e.key == "ArrowUp") {
             if (!start) {
-                gameLoop = setInterval(run, 1000 / FPS);
                 start = true
 
+                gameLoop = setInterval(run, 1000 / FPS);
+                diaNoite() // o jogo fica alternando entre escuro e claro
+
+                // funções assíncronas
                 dino.moverPernas()
                 let i = 0;
                 let loopNuvens = setInterval(() => {
@@ -55,17 +71,6 @@ function keys() {
         }
     })
 
-}
-
-function displayPontos() {
-    let str = `${pontos}`
-    let qtdDigitos = 6 - str.length
-    let points = ''
-
-    for (let i = 0; i < str.length; i++) {
-
-    }
-    return points + pontos
 }
 
 function diaNoite() {
@@ -84,7 +89,9 @@ function diaNoite() {
 function run() {
     dino.correr();
     deserto.mover();
-    displayPontos()
+    pontos.contaPontos()
+    pontos.displayPontos()
+    cactos.forEach((ele) => ele.mover())
     //Em caso de game over
     //clearInterval(gameLoop);
 }

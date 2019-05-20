@@ -1,6 +1,6 @@
 export default class Dino {
     constructor(deserto) {
-        this.velocidadePernas = 100
+        this.velocidadePernas = 10
         this.sprites = {
             'correr1': '-766px',
             'correr2': '-810px',
@@ -22,12 +22,12 @@ export default class Dino {
                     (this.element.style.backgroundPositionX == this.sprites.correr1) ?
                         this.sprites.correr2 : this.sprites.correr1;
             }
-        }, this.velocidadePernas)
+        }, 1000 / this.velocidadePernas)
     }
 
     correr() {
         if (this.status == 1) {
-            this.element.style.backgroundPositionX = this.sprites.pulando;
+            this.element.style.backgroundPositionX = this.sprites.pulando; // seta a imagem do dino pulando
             this.element.style.bottom = (parseInt(this.element.style.bottom) + 4) + "px";
             if (this.element.style.bottom == this.alturaMaxima) this.status = 2;
         } else if (this.status == 2) {

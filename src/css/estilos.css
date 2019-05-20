@@ -32,12 +32,24 @@
     z-index: 1;
 }
 
-.pontos {
-    width: 10px;
-    height: 15px;
-    background-image: url(sprites.png);
-    size: 2em;
+.pontuacao {
     position: absolute;
     right: 15px;
     z-index: 2;
+}
+
+.pontos {
+    display: inline-block;
+    width: 9px;
+    height: 15px;
+    background-image: url(sprites.png);
+}
+
+.cacto{
+    height: 40px;
+    width: 17px;
+    bottom: 2px;
+    position: absolute;
+    z-index: 3;
+    background-image: url(sprites.png);
 }

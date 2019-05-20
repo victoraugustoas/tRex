@@ -1,5 +1,7 @@
 export default class Deserto {
     constructor(FPS) {
+        this.tick = 0 // frames para contagem de pontos
+
         this.element = document.createElement("div");
         this.element.className = "deserto";
         document.body.appendChild(this.element);
@@ -10,7 +12,6 @@ export default class Deserto {
 
         this.element.appendChild(this.chao);
         this.passoChao = 2
-        this.aceleracao = FPS
         this.zeraPosition()
     }
 
@@ -21,10 +22,10 @@ export default class Deserto {
     }
 
     mover() {
-        this.aceleracao += this.FPS
-        if (this.aceleracao / 1000 > 1) {
-            this.passoChao += 0.05
-            this.aceleracao = this.FPS
+        this.tick++
+        if (this.tick / 1000 == 1) {
+            this.passoChao += 1
+            this.tick = 0
         }
         this.chao.style.backgroundPositionX = (parseInt(this.chao.style.backgroundPositionX) - (this.passoChao)) + "px"
     }
