@@ -33,7 +33,9 @@
 }
 
 .pontos {
-    font-family: 'Courier New', Courier, monospace;
+    width: 10px;
+    height: 15px;
+    background-image: url(sprites.png);
     size: 2em;
     position: absolute;
     right: 15px;

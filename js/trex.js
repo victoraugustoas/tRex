@@ -2,6 +2,7 @@
 
     const FPS = 60;
     const numberOfClouds = 7;
+    let start = false
     var gameLoop;
     var deserto;
     var dino;
@@ -13,32 +14,45 @@
         deserto = new Deserto();
         dino = new Dino();
 
-        pontuacao = document.createElement('span')
-        pontuacao.className = 'pontos'
-        document.getElementsByClassName('deserto')[0].appendChild(pontuacao)
+        pontuacao = document.createElement('div')
+        document.body.appendChild(pontuacao)
 
         for (let i = 0; i < numberOfClouds; i++) {
             nuvens.push(new Nuvem())
         }
 
-        let i = 0;
-        let loopNuvens = setInterval(() => {
-            if (i < nuvens.length) {
-                nuvens[i].mover()
-            } else {
-                clearInterval(loopNuvens)
-            }
-            i++
-        }, 1000);
-
-        gameLoop = setInterval(run, 1000 / FPS);
-        contaPontos()
         diaNoite()
+        pontos = new Pontos()
+        pontos.contaPontos()
     }
 
-    window.addEventListener("keydown", function(e) {
-        if (e.key == "ArrowUp" && dino.status == 0) dino.status = 1;
-    });
+    function keys() {
+        window.addEventListener("keydown", function(e) {
+            if (e.key == "ArrowUp" && dino.status == 0) dino.status = 1;
+        });
+
+        window.addEventListener("keyup", (e) => {
+            console.log('oi')
+            if (e.key == "ArrowUp") {
+                if (!start) {
+                    gameLoop = setInterval(run, 1000 / FPS);
+                    start = true
+
+                    dino.moverPernas()
+                    let i = 0;
+                    let loopNuvens = setInterval(() => {
+                        if (i < nuvens.length) {
+                            nuvens[i].mover()
+                        } else {
+                            clearInterval(loopNuvens)
+                        }
+                        i++
+                    }, 1000);
+                }
+            }
+        })
+
+    }
 
     class Deserto {
         constructor() {
@@ -52,7 +66,7 @@
 
             this.element.appendChild(this.chao);
             this.passoChao = 2
-            this.aceleracao = pontos / 100 + 1
+            this.aceleracao = FPS
             this.zeraPosition()
         }
 
@@ -63,8 +77,12 @@
         }
 
         mover() {
-            this.aceleracao = pontos / 100 + 1
-            this.chao.style.backgroundPositionX = (parseInt(this.chao.style.backgroundPositionX) - (this.passoChao + this.aceleracao)) + "px";
+            this.aceleracao += FPS
+            if (this.aceleracao / 1000 > 1) {
+                this.passoChao += 0.05
+                this.aceleracao = FPS
+            }
+            this.chao.style.backgroundPositionX = (parseInt(this.chao.style.backgroundPositionX) - (this.passoChao)) + "px"
         }
     }
 
@@ -74,16 +92,15 @@
             this.sprites = {
                 'correr1': '-766px',
                 'correr2': '-810px',
-                'pulando': '-678px'
+                'pulando': '-676px'
             };
             this.status = 0; // 0:correndo; 1:subindo; 2: descendo; 3: agachado
             this.alturaMaxima = "80px";
             this.element = document.createElement("div");
             this.element.className = "dino";
-            this.element.style.backgroundPositionX = this.sprites.correr1;
+            this.element.style.backgroundPositionX = this.sprites.pulando;
             this.element.style.bottom = "0px";
             deserto.element.appendChild(this.element);
-            this.moverPernas()
         }
 
         moverPernas() {
@@ -136,18 +153,44 @@
         }
     }
 
-    function contaPontos() {
-        setInterval(() => {
-            pontos++
-        }, 100)
+    class Pontos {
+        constructor() {
+            this.pontos = 0
+            this.numeros = {
+                0: { pos: '-484px' },
+                1: { pos: '-495px' },
+                2: { pos: '-504px' },
+                3: { pos: '-514px' },
+                4: { pos: '-524px' }
+            }
+
+            this.digitos = []
+
+            for (let i = 0; i < 1; i++) {
+                let div = document.createElement('div')
+                div.className = 'pontos'
+                div.style.backgroundPositionX = this.numeros[Object.keys(this.numeros)[i]]
+                pontuacao.appendChild(div)
+
+                this.digitos.push(div)
+            }
+            this.digitos[0].style.backgroundPositionX = this.numeros['0'].pos
+        }
+
+        contaPontos() {
+            setInterval(() => {
+                this.pontos++
+            }, 100)
+        }
     }
 
     function displayPontos() {
         let str = `${pontos}`
         let qtdDigitos = 6 - str.length
         let points = ''
-        for (let i = 0; i < qtdDigitos; i++) {
-            points += '0'
+
+        for (let i = 0; i < str.length; i++) {
+
         }
         return points + pontos
     }
@@ -168,9 +211,10 @@
     function run() {
         dino.correr();
         deserto.mover();
-        pontuacao.innerHTML = displayPontos()
+        displayPontos()
             //Em caso de game over
             //clearInterval(gameLoop);
     }
-    init();
+    init()
+    keys()
 })();
