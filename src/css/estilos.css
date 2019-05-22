@@ -45,11 +45,15 @@
     background-image: url(sprites.png);
 }
 
-.cacto{
-    height: 40px;
-    width: 17px;
+.groupCacto {
     bottom: 2px;
     position: absolute;
     z-index: 3;
+    display: flex;
+}
+
+.cacto {
     background-image: url(sprites.png);
+    height: 40px;
+    width: 17px;
 }

@@ -4,6 +4,7 @@ import Deserto from './Class/Deserto'
 import Dino from './Class/Dino'
 import Nuvem from './Class/Nuvem'
 import Cacto from './Class/Cacto'
+import Pterossauro from './Class/Pterossauro'
 
 const FPS = 60;
 const numberOfClouds = 7;
@@ -15,7 +16,7 @@ let deserto;
 let dino;
 let pontos = 0;
 
-const numberOfCactos = 5
+const numberOfCactos = 1
 let cactos = []
 
 function init() {
