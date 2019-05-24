@@ -7,7 +7,7 @@ export default class Dino {
             'pulando': '-676px'
         };
         this.status = 0; // 0:correndo; 1:subindo; 2: descendo; 3: agachado
-        this.alturaMaxima = "80px";
+        this.alturaMaxima = "120px";
         this.element = document.createElement("div");
         this.element.className = "dino";
         this.element.style.backgroundPositionX = this.sprites.pulando;
@@ -26,7 +26,7 @@ export default class Dino {
     }
 
     correr() {
-        if (this.status == 1) {
+        if (this.status == 1) { // pulando
             this.element.style.backgroundPositionX = this.sprites.pulando; // seta a imagem do dino pulando
             this.element.style.bottom = (parseInt(this.element.style.bottom) + 4) + "px";
             if (this.element.style.bottom == this.alturaMaxima) this.status = 2;

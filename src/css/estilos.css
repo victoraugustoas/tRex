@@ -1,17 +1,27 @@
+html{
+    height: 95vh;
+}
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
 .deserto {
-    width: 500px;
-    height: 150px;
+    height: 60%;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
 .chao {
-    width: 500px;
     height: 16px;
     background-image: url(sprites.png);
     background-position-y: -53px;
     position: absolute;
     bottom: 0px;
+    width: 100%;
 }
 
 .dino {
@@ -46,14 +56,15 @@
 }
 
 .groupCacto {
-    bottom: 2px;
+    bottom: 0px;
     position: absolute;
     z-index: 3;
     display: flex;
+    align-items: baseline;
 }
 
 .cacto {
     background-image: url(sprites.png);
-    height: 40px;
-    width: 17px;
+    height: 47px;
+    width: 24px;
 }

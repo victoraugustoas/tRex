@@ -18,18 +18,9 @@ export default class Cacto {
         this.qtdCactos = Math.random() * 4
         this.cactos = []
 
-        for (let i = 0; i < this.qtdCactos; i++) {
-            let figureCacto = parseInt(Math.random() * 5)
+        this.redefinirGrupo()
 
-            let element = document.createElement('div')
-            element.className = 'cacto'
-            element.style.backgroundPositionX = this.sprites[`${figureCacto}`].pos
-
-            this.groupCactos.appendChild(element)
-
-            this.cactos.push(element)
-        }
-        this.groupCactos.style.right = (Math.random() * 500) * -1 + 'px'
+        this.groupCactos.style.right = (Math.random() * window.innerWidth + 100) * -1 + 'px'
         deserto.element.appendChild(this.groupCactos)
     }
 
@@ -40,11 +31,16 @@ export default class Cacto {
         })
         this.cactos = []
         for (let i = 0; i < this.qtdCactos; i++) {
-            let figureCacto = parseInt(Math.random() * 5)
+            let figureCacto = parseInt(Math.random() * 4)
 
             let element = document.createElement('div')
             element.className = 'cacto'
             element.style.backgroundPositionX = this.sprites[`${figureCacto}`].pos
+
+            if (figureCacto == 0 || figureCacto == 1 || figureCacto == 2) {
+                element.style.height = '37px'
+                element.style.width = '17px'
+            }
 
             this.groupCactos.appendChild(element)
 
@@ -58,9 +54,8 @@ export default class Cacto {
             this.passoCacto += 1
             this.tick = 0
         }
-        if (parseInt(this.groupCactos.style.right) > 1200) {
+        if (parseInt(this.groupCactos.style.right) > window.innerWidth + 100) {
             this.groupCactos.style.right = '-500px'
-            let num = parseInt(Math.random() * 5)
             this.redefinirGrupo()
         }
         this.groupCactos.style.right = parseFloat(this.groupCactos.style.right) + this.passoCacto + 'px'

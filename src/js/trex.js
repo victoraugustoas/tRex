@@ -7,7 +7,7 @@ import Cacto from './Class/Cacto'
 import Pterossauro from './Class/Pterossauro'
 
 const FPS = 60;
-const numberOfClouds = 7;
+const numberOfClouds = 10;
 let nuvens = [];
 
 let start = false
