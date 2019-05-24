@@ -9,7 +9,7 @@ body{
 }
 
 .deserto {
-    height: 60%;
+    height: 150px;
     position: relative;
     overflow: hidden;
     width: 100%;
@@ -45,7 +45,7 @@ body{
 .pontuacao {
     position: absolute;
     right: 15px;
-    z-index: 2;
+    z-index: 10;
 }
 
 .pontos {
@@ -67,4 +67,12 @@ body{
     background-image: url(sprites.png);
     height: 47px;
     width: 24px;
+}
+
+.pterossauroMalucao{
+    position: absolute;
+    height: 34px;
+    width: 46px;
+    background-image: url(sprites.png);
+    z-index: 7;
 }

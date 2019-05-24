@@ -12,16 +12,16 @@ export default class Cacto {
 
         this.passoCacto = 2 // qtd de pixels q o cacto ira percorrer a cada frame
 
-        this.groupCactos = document.createElement('div')
-        this.groupCactos.className = 'groupCacto'
+        this.element = document.createElement('div')
+        this.element.className = 'groupCacto'
 
         this.qtdCactos = Math.random() * 4
         this.cactos = []
 
         this.redefinirGrupo()
 
-        this.groupCactos.style.right = (Math.random() * window.innerWidth + 100) * -1 + 'px'
-        deserto.element.appendChild(this.groupCactos)
+        this.element.style.right = (Math.random() * window.innerWidth + 100) * -1 + 'px'
+        deserto.element.appendChild(this.element)
     }
 
     redefinirGrupo() {
@@ -42,7 +42,7 @@ export default class Cacto {
                 element.style.width = '17px'
             }
 
-            this.groupCactos.appendChild(element)
+            this.element.appendChild(element)
 
             this.cactos.push(element)
         }
@@ -54,10 +54,10 @@ export default class Cacto {
             this.passoCacto += 1
             this.tick = 0
         }
-        if (parseInt(this.groupCactos.style.right) > window.innerWidth + 100) {
-            this.groupCactos.style.right = '-500px'
+        if (parseInt(this.element.style.right) > window.innerWidth + 100) {
+            this.element.style.right = '-500px'
             this.redefinirGrupo()
         }
-        this.groupCactos.style.right = parseFloat(this.groupCactos.style.right) + this.passoCacto + 'px'
+        this.element.style.right = parseFloat(this.element.style.right) + this.passoCacto + 'px'
     }
 }

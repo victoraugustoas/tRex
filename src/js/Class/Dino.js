@@ -2,27 +2,43 @@ export default class Dino {
     constructor(deserto) {
         this.velocidadePernas = 10
         this.sprites = {
-            'correr1': '-766px',
-            'correr2': '-810px',
-            'pulando': '-676px'
+            'correr1': '-765px',
+            'correr2': '-809px',
+            'pulando': '-676px',
+            'agachado1': '-941px',
+            'agachado2': '-1000px'
         };
         this.status = 0; // 0:correndo; 1:subindo; 2: descendo; 3: agachado
-        this.alturaMaxima = "120px";
+        this.alturaMaxima = "140px";
         this.element = document.createElement("div");
         this.element.className = "dino";
         this.element.style.backgroundPositionX = this.sprites.pulando;
         this.element.style.bottom = "0px";
         deserto.element.appendChild(this.element);
+
+        this.correndo = true
     }
 
     moverPernas() {
-        setInterval(() => {
-            if (this.status == 0) {
-                this.element.style.backgroundPositionX =
-                    (this.element.style.backgroundPositionX == this.sprites.correr1) ?
-                        this.sprites.correr2 : this.sprites.correr1;
-            }
-        }, 1000 / this.velocidadePernas)
+        if (this.correndo) {
+            this.correndo = setInterval(() => {
+                if (this.status == 0) {
+                    this.element.style.width = '46px'
+                    this.element.style.backgroundPositionX =
+                        (this.element.style.backgroundPositionX == this.sprites.correr1) ?
+                            this.sprites.correr2 : this.sprites.correr1;
+                }
+                if (this.status == 3) {
+                    if (this.element.style.backgroundPositionX == this.sprites.agachado1) {
+                        this.element.style.backgroundPositionX = this.sprites.agachado2
+                        this.element.style.width = '59px'
+                    } else {
+                        this.element.style.backgroundPositionX = this.sprites.agachado1
+                        this.element.style.width = '59px'
+                    }
+                }
+            }, 1000 / this.velocidadePernas)
+        }
     }
 
     correr() {
@@ -34,5 +50,18 @@ export default class Dino {
             this.element.style.bottom = (parseInt(this.element.style.bottom) - 4) + "px";
             if (this.element.style.bottom == "0px") this.status = 0;
         }
+    }
+
+    pause() {
+        clearInterval(this.correndo)
+    }
+
+    resume() {
+        this.moverPernas()
+    }
+
+    gameOver() {
+        clearInterval(this.correndo)
+        this.correndo = false
     }
 }
