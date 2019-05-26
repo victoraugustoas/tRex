@@ -24,6 +24,8 @@ export default class Dino {
             this.correndo = setInterval(() => {
                 if (this.status == 0) {
                     this.element.style.width = '46px'
+                    this.element.style.height = '45px'
+                    this.element.style.backgroundPositionY = '-3px'
                     this.element.style.backgroundPositionX =
                         (this.element.style.backgroundPositionX == this.sprites.correr1) ?
                             this.sprites.correr2 : this.sprites.correr1;
@@ -32,9 +34,13 @@ export default class Dino {
                     if (this.element.style.backgroundPositionX == this.sprites.agachado1) {
                         this.element.style.backgroundPositionX = this.sprites.agachado2
                         this.element.style.width = '59px'
+                        this.element.style.height = '30px'
+                        this.element.style.backgroundPositionY = '-19px'
                     } else {
                         this.element.style.backgroundPositionX = this.sprites.agachado1
                         this.element.style.width = '59px'
+                        this.element.style.height = '30px'
+                        this.element.style.backgroundPositionY = '-19px'
                     }
                 }
             }, 1000 / this.velocidadePernas)

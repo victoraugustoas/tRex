@@ -29,4 +29,12 @@ export default class Deserto {
         }
         this.chao.style.backgroundPositionX = (parseInt(this.chao.style.backgroundPositionX) - (this.passoChao)) + "px"
     }
+
+    destroi() {
+        let nodeList = this.element.childNodes
+        while (nodeList.length != 0) {
+            nodeList.forEach((ele) => ele.parentNode.removeChild(ele))
+        }
+        document.body.removeChild(this.element)
+    }
 }
