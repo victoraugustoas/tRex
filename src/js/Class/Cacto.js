@@ -10,7 +10,7 @@ export default class Cacto {
             5: { pos: '-407px' }
         }
 
-        this.passoCacto = 2 // qtd de pixels q o cacto ira percorrer a cada frame
+        this.passoCacto = 3 // qtd de pixels q o cacto ira percorrer a cada frame
 
         this.element = document.createElement('div')
         this.element.className = 'groupCacto'

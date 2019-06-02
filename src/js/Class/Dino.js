@@ -29,18 +29,19 @@ export default class Dino {
                     this.element.style.backgroundPositionX =
                         (this.element.style.backgroundPositionX == this.sprites.correr1) ?
                             this.sprites.correr2 : this.sprites.correr1;
-                }
-                if (this.status == 3) {
-                    if (this.element.style.backgroundPositionX == this.sprites.agachado1) {
-                        this.element.style.backgroundPositionX = this.sprites.agachado2
-                        this.element.style.width = '59px'
-                        this.element.style.height = '30px'
-                        this.element.style.backgroundPositionY = '-19px'
-                    } else {
-                        this.element.style.backgroundPositionX = this.sprites.agachado1
-                        this.element.style.width = '59px'
-                        this.element.style.height = '30px'
-                        this.element.style.backgroundPositionY = '-19px'
+                } else {
+                    if (this.status == 3) {
+                        if (this.element.style.backgroundPositionX == this.sprites.agachado1) {
+                            this.element.style.backgroundPositionX = this.sprites.agachado2
+                            this.element.style.width = '59px'
+                            this.element.style.height = '30px'
+                            this.element.style.backgroundPositionY = '-19px'
+                        } else {
+                            this.element.style.backgroundPositionX = this.sprites.agachado1
+                            this.element.style.width = '59px'
+                            this.element.style.height = '30px'
+                            this.element.style.backgroundPositionY = '-19px'
+                        }
                     }
                 }
             }, 1000 / this.velocidadePernas)
@@ -52,9 +53,13 @@ export default class Dino {
             this.element.style.backgroundPositionX = this.sprites.pulando; // seta a imagem do dino pulando
             this.element.style.bottom = (parseInt(this.element.style.bottom) + 4) + "px";
             if (this.element.style.bottom == this.alturaMaxima) this.status = 2;
-        } else if (this.status == 2) {
-            this.element.style.bottom = (parseInt(this.element.style.bottom) - 4) + "px";
-            if (this.element.style.bottom == "0px") this.status = 0;
+        } else {
+            if (this.status == 2) {
+                this.element.style.bottom = (parseInt(this.element.style.bottom) - 4) + "px";
+                if (this.element.style.bottom == "0px") {
+                    this.status = 0
+                }
+            }
         }
     }
 

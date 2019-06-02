@@ -24,6 +24,7 @@ let textGameOver = null
 let buttonRestart = null
 
 let loopNuvens = null
+let posNuvem = 0
 
 const colisor = new Colisor()
 
@@ -63,7 +64,7 @@ function keys() {
         if (e.key == "ArrowUp" && dino.status == 0) dino.status = 1
     })
     window.addEventListener('keydown', function (e) {
-        if (e.key == 'ArrowDown') dino.status = 3
+        if (e.key == 'ArrowDown' && dino.status == 0) dino.status = 3
     })
     window.addEventListener('keyup', function (e) {
         if (dino.status == 3) dino.status = 0
@@ -89,14 +90,21 @@ function keys() {
 
                 // funções assíncronas
                 dino.moverPernas()
-                let i = 0;
+                posNuvem = 0
+                let flag = true
                 loopNuvens = setInterval(() => {
-                    if (i < nuvens.length) {
-                        nuvens[i].mover()
-                    } else {
-                        clearInterval(loopNuvens)
+                    if (posNuvem == 0 && flag) {
+                        nuvens[posNuvem].mover()
+                        flag = false
                     }
-                    i++
+                    if (parseInt(nuvens[posNuvem].element.style.right) > (window.innerWidth / 2)) {
+                        posNuvem++
+                        if (posNuvem < nuvens.length) {
+                            nuvens[posNuvem].mover()
+                        } else {
+                            clearInterval(loopNuvens)
+                        }
+                    }
                 }, 1000);
             }
         }
@@ -153,13 +161,37 @@ function pause() {
         dino.pause()
         pterossauros.forEach((ele) => ele.pause())
         nuvens.forEach((ele) => ele.pause())
+        clearInterval(loopNuvens)
         clearInterval(gameLoop)
 
         pauseGame = true
     } else {
         dino.resume()
         pterossauros.forEach((ele) => ele.resume())
-        nuvens.forEach((ele) => ele.resume())
+
+
+        nuvens.forEach((ele, idx) => {
+            if (idx <= posNuvem) {
+                ele.resume()
+            }
+        })
+        let flag = false
+        loopNuvens = setInterval(() => {
+            if (posNuvem == 0 && flag) {
+                nuvens[posNuvem].mover()
+                flag = false
+            }
+            if (parseInt(nuvens[posNuvem].element.style.right) > (window.innerWidth / 2)) {
+                posNuvem++
+                if (posNuvem < nuvens.length) {
+                    nuvens[posNuvem].resume()
+                } else {
+                    clearInterval(loopNuvens)
+                }
+            }
+        }, 1000);
+
+
         gameLoop = setInterval(run, 1000 / FPS);
 
         pauseGame = false

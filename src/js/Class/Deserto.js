@@ -11,7 +11,7 @@ export default class Deserto {
         this.chao.style.backgroundPositionX = "0px";
 
         this.element.appendChild(this.chao);
-        this.passoChao = 2
+        this.passoChao = 3 // qtd de pixels q o deserto ira percorrer a cada frame
         this.zeraPosition()
     }
 
