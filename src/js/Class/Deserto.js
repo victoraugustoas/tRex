@@ -2,9 +2,8 @@ export default class Deserto {
     constructor(FPS) {
         this.tick = 0 // frames para contagem de pontos
 
-        this.element = document.createElement("div");
+        this.element = document.getElementById('deserto');
         this.element.className = "deserto";
-        document.body.appendChild(this.element);
 
         this.chao = document.createElement("div");
         this.chao.className = "chao";

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import '../css/estilos.css'
 import Pontos from './Class/Pontos'
 import Deserto from './Class/Deserto'
@@ -199,6 +200,12 @@ function pause() {
 }
 
 function gameOver() {
+
+    axios.post('/pontuacao', {
+        pontuacao: pontos.pontos,
+        _csrf: document.getElementById('_csrf').value
+    })
+
     clearInterval(gameLoop);
     function over(ele) { ele.gameOver() }
 
