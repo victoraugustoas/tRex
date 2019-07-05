@@ -34,6 +34,5 @@ export default class Deserto {
         while (nodeList.length != 0) {
             nodeList.forEach((ele) => ele.parentNode.removeChild(ele))
         }
-        document.body.removeChild(this.element)
     }
 }

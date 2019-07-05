@@ -35,7 +35,7 @@ let pterossauros = []
 const numberOfCactos = 1
 let cactos = []
 
-function init() {
+async function init() {
     deserto = new Deserto(FPS);
     dino = new Dino(deserto);
 
@@ -46,8 +46,14 @@ function init() {
     for (let i = 0; i < numberOfPterossauros; i++) {
         pterossauros.push(new Pterossauro(deserto, FPS))
     }
-
-    pontos = new Pontos(deserto, hipontos)
+    try {
+        let pontuacao_max = await axios.get('/pontuacao_max')
+        console.log('jogo', pontuacao_max.data)
+        pontos = new Pontos(deserto, pontuacao_max.data)
+        hipontos = pontuacao_max.data
+    } catch (err) {
+        pontos = new Pontos(deserto, hipontos)
+    }
 
     let i = 0
     let loopCactos = setInterval(() => {
@@ -201,10 +207,12 @@ function pause() {
 
 function gameOver() {
 
-    axios.post('/pontuacao', {
-        pontuacao: pontos.pontos,
-        _csrf: document.getElementById('_csrf').value
-    })
+    try {
+        axios.post('/pontuacao', {
+            pontuacao: pontos.pontos,
+            _csrf: document.getElementById('_csrf').value
+        })
+    } catch (err) { }
 
     clearInterval(gameLoop);
     function over(ele) { ele.gameOver() }
